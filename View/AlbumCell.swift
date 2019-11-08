@@ -28,14 +28,12 @@ class AlbumCell: UITableViewCell {
     {
         if let img = self.cache.object(forKey: rowViewModel.url as AnyObject) as? UIImage
         {
-            DispatchQueue.main.async {
-                self.imgView.image = img
-            }
            
+                self.imgView.image = img
+          
         }else
         {
              DispatchQueue.main.async {
-                
                 let url = URL(string: rowViewModel.url)
                 let req = URLRequest(url: url!)
                 URLSession.shared.dataTask(with: req, completionHandler: { data, res, err in
@@ -47,14 +45,10 @@ class AlbumCell: UITableViewCell {
                         self.imgView.image = img
                     }
                     self.cache.setObject(img, forKey:rowViewModel.url as AnyObject )
-                    
                     }
                 }).resume()
-                
             }
         }
-        
-        
         self.lblTitle.text = rowViewModel.title
     }
 }
